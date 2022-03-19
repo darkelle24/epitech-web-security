@@ -12,6 +12,7 @@ jobs:
       -
         name: Checkout
         uses: actions/checkout@v2
+        working-directory: "/Front"
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1
