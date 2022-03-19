@@ -61,7 +61,7 @@ jobs:
           script: |
             docker-compose stop
             docker-compose pull
-            docker-compose --build up
+            docker-compose up -d
       
       # - name: Checkout
       #   uses: actions/checkout@v2
