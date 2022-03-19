@@ -44,22 +44,34 @@ jobs:
           context: ./API
           push: true
           tags: cchalop1/epitech-security-api:latest
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Run playbook
-        uses: dawidd6/action-ansible-playbook@v2
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@master
         with:
-          playbook: deploy.yml
-          directory: ./
-          key: ${{secrets.SSH_PRIVATE_KEY}}
-          inventory: |
-            [all]
-            ansible_host=epitech-owasp-2022.com
-            ansible_user=root
+          host: epitech-owasp-2022.com
+          username: root
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: whoami
+      
+      # - name: Checkout
+      #   uses: actions/checkout@v2
+      # - name: Set up Python 3.7
+      #   uses: actions/setup-python@v1
+      #   with:
+      #     python-version: 3.7
+      # - name: Run playbook
+      #   uses: dawidd6/action-ansible-playbook@v2
+      #   with:
+      #     playbook: deploy.yml
+      #     directory: ./
+      #     key: ${{secrets.SSH_PRIVATE_KEY}}
+      #     inventory: |
+      #       [all]
+      #       ansible_host=epitech-owasp-2022.com
+      #       ansible_user=root
             
-            [defaults]
-            host_key_checking = False
-          options: |
-            --inventory .hosts
-            --extra-vars hello=there
-            --verbose
+      #       [defaults]
+      #       host_key_checking = False
+      #     options: |
+      #       --inventory .hosts
+      #       --extra-vars hello=there
+      #       --verbose
