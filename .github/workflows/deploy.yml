@@ -54,7 +54,8 @@ jobs:
           key: ${{secrets.SSH_PRIVATE_KEY}}
           inventory: |
             [all]
-            epitech-owasp-2022.com
+            ansible_host=epitech-owasp-2022.com
+            ansible_user=root
             
             [defaults]
             host_key_checking = False
