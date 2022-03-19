@@ -1,16 +1,27 @@
-version: "3.9"
+version: "3.3"
 
 services:
-  app:
-    container_name: Attack_Defend_api
-    build:
-      context: ./
-      dockerfile: ./API/Dockerfile
-    environment:
-      - DATABASE_URL=mongodb+srv://3oXRARJmiq:mGx9efM7gNosQbFDJJJHBJif65o48ptcTxdHGa4z@cluster0.gmtnk.mongodb.net/AttackDefend?retryWrites=true&w=majority
-      - JWT_SECRET_KEY=4ak37XxZQH~BVXx3^(9Qga5:zM7_6Y(!S*z2JqRY377=.a2_a>8H5crfv!sT;_5}
-      - JWT_VALIDATION_KEY=y&QG&rLfp84vZkS!jvj6EyFt8A*bU?E#B&E7yZfy50T4XwB66O85*8KZUOxI@99C
-    restart: always
-    ports:
-      - 5000:5000
 
+  traefik:
+    image: "traefik:v2.6"
+    container_name: "traefik"
+    command:
+      #- "--log.level=DEBUG"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+
+  web:
+    image: "cchalop1/epitech-security-web:latest"
+    container_name: "web"
+    restart: always
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.whoami.rule=Host(`epitech-owasp-2022.com`)"
+      - "traefik.http.routers.whoami.entrypoints=web"
