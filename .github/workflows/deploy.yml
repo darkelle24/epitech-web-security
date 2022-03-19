@@ -55,6 +55,9 @@ jobs:
           inventory: |
             [all]
             epitech-owasp-2022.com
+            
+            [defaults]
+            host_key_checking = False
           options: |
             --inventory .hosts
             --extra-vars hello=there
