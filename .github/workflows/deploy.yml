@@ -5,9 +5,8 @@ on:
     branches:
       - 'main'
 
-jobs:
-  dockerFrontend:
-    name: Build and push frontend
+  deploy:
+    name: Build and push backend
     runs-on: ubuntu-latest
     steps:
       -
@@ -32,11 +31,6 @@ jobs:
           context: ./Front
           push: true
           tags: cchalop1/epitech-security-web:latest
-
-  dockerBackend:
-    name: Build and push backend
-    runs-on: ubuntu-latest
-    steps:
       -
         name: Checkout
         uses: actions/checkout@v2
@@ -59,11 +53,6 @@ jobs:
           context: ./API
           push: true
           tags: cchalop1/epitech-security-api:latest
-  
-  ansible:
-    name: Run Ansible
-    runs-on: ubuntu-latest
-    steps:
       - 
         name: Checkout
         uses: actions/checkout@v2
@@ -80,5 +69,5 @@ jobs:
             epitech-owasp-2022.com
           options: |
             --inventory .hosts
-            --limit group1
+            --extra-vars hello=there
             --verbose
