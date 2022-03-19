@@ -1,10 +1,10 @@
 FROM python:3.6
 
-COPY API/requirement* requirement.txt
+COPY requirement* requirement.txt
 RUN pip install -r requirement.txt
 COPY . .
 
-CMD ["python3","API/startup.py"]
+CMD ["python3","startup.py"]
 
 
 # 3oXRARJmiq
