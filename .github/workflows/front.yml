@@ -30,4 +30,4 @@ jobs:
         with:
           context: ./Front
           push: true
-          tags: user/app:latest
+          tags: cchalop1/epitech-security-web:latest
