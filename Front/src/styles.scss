@@ -24,7 +24,7 @@ body {
 }
 
 .aligner-item {
-    max-width: 50%;
+    max-width: 50vw;
 }
 
 .aligner-item--top {
@@ -53,4 +53,15 @@ body {
 
 .mat-form-field-label {
     color: var(--text_color_sec)!important;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px var(--background_color) inset !important;
+}
+
+input:-webkit-autofill {
+    -webkit-text-fill-color: var(--text_color) !important;
 }
