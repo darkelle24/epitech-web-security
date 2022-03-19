@@ -1,0 +1,4 @@
+---
+- name: Create docker network
+  community.docker.docker_network:
+    name: "treafik_net"

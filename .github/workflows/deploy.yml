@@ -59,3 +59,26 @@ jobs:
           context: ./API
           push: true
           tags: cchalop1/epitech-security-api:latest
+  
+  ansible:
+    name: Run Ansible
+    runs-on: ubuntu-latest
+    steps:
+      - 
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Run playbook
+        uses: dawidd6/action-ansible-playbook@v2
+        with:
+          playbook: deploy.yml
+          directory: ./
+          # Optional, SSH private key
+          key: ${{secrets.SSH_PRIVATE_KEY}}
+          inventory: |
+            [all]
+            epitech-owasp-2022.com
+          options: |
+            --inventory .hosts
+            --limit group1
+            --verbose
