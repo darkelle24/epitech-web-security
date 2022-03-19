@@ -47,9 +47,9 @@ jobs:
       - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@master
         with:
-          host: epitech-owasp-2022.com
+          host: epitech-owasp-2022.com ${{ secrets.SERVER_HOST}}
           username: root
-          key: ${{ SSH_PRIVATE_KEY }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: whoami
       
       # - name: Checkout
