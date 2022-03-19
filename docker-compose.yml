@@ -40,4 +40,4 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.api.rule=Host(`api.epitech-owasp-2022.com`)"
       - "traefik.http.routers.api.entrypoints=web"
-      - traefik.port=5000 
+      - "traefik.port=5000"
