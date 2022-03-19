@@ -49,7 +49,7 @@ jobs:
         with:
           host: epitech-owasp-2022.com
           username: root
-          password: ${{ secrets.SSH_PASSWORD }}
+          key: ${{ SSH_PRIVATE_KEY }}
           script: whoami
       
       # - name: Checkout
