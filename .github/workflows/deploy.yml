@@ -51,7 +51,7 @@ jobs:
           username: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: "docker-compose.yml"
-          target: "/root/docker-compose.yml"
+          target: "/root/"
       - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@master
         with:
