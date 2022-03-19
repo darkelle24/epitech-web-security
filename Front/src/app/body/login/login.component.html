@@ -1,1 +1,22 @@
-<p>login works!</p>
+<div class="login">
+    <div class="center">
+        <h1 class="title">LOGIN</h1>
+    </div>
+    <mat-form-field style.fontSize.px="15" class="form" appearance="standard" color="white">
+        <mat-label>Username</mat-label>
+        <input matInput autocomplete="on" name="username" required>
+    </mat-form-field>
+    <mat-form-field style.fontSize.px="15" class="form" appearance="standard" color="white">
+        <mat-label>Password</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" autocomplete="on" name="current-password" required>
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+    </mat-form-field>
+    <div class="center">
+        <button mat-raised-button class="login-butt">Login</button>
+    </div>
+    <div class="to-register">
+        <span>Need to create an <a routerLink="/register"> account</a></span>
+    </div>
+</div>

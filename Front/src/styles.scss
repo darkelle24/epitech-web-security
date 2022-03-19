@@ -1,4 +1,56 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    color: var(--text_color)!important;
+}
+
+:root {
+    --background_color: #1E1E1E;
+    --text_color: #FFFFFF;
+    --text_color_sec: #8E8E8E;
+}
+
+.aligner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.aligner-item {
+    max-width: 50%;
+}
+
+.aligner-item--top {
+    align-self: flex-start;
+}
+
+.aligner-item--bottom {
+    align-self: flex-end;
+}
+
+.mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: var(--text_color) !important;
+}
+
+.mat-form-field-underline {
+    /*change color of underline*/
+    background-color: var(--text_color_sec) !important;
+}
+
+.mat-form-field-ripple {
+    /*change color of underline when focused*/
+    background-color: var(--text_color_sec) !important;
+    ;
+}
+
+.mat-form-field-label {
+    color: var(--text_color_sec)!important;
+}
