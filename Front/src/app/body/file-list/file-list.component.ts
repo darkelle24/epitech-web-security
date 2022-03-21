@@ -9,7 +9,7 @@ import { FileLinkComponent } from './file-link/file-link.component';
 })
 export class FileListComponent implements OnInit, OnDestroy {
 
-  list: any[] = [{}, {}, {}]
+  list: any[] = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]
 
   constructor(private _snackBar: MatSnackBar) { }
 
