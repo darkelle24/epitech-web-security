@@ -1,6 +1,0 @@
----
-- hosts: all
-  # vars_files:
-  #   - ./vars.yml
-  tasks:
-    - include_tasks: start_docker.yml

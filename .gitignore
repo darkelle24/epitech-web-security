@@ -268,3 +268,4 @@ Temporary Items
 # End of https://www.toptal.com/developers/gitignore/api/macos,python,flask
 key
 key.pub
+key3.pem
