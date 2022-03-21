@@ -1,1 +1,24 @@
-<p>login works!</p>
+<div>
+  <h1>You can Try :)</h1>
+  <form [formGroup]="loginForm" (submit)="onSubmit" class="example-form">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Email</mat-label>
+      <input formControlName="email" matInput id="email" type="email" />
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Password</mat-label>
+      <input formControlName="password" matInput id="password" type="password" />
+    </mat-form-field>
+
+    <button mat-raised-button type="submit" [disabled]="!loginForm.valid">Login</button>
+
+    
+  </form>
+
+  <!-- <form>
+    <label for="email"></label>
+    <input matInput id="email" type="email" />
+    <button type="submit"></button>
+ </form> -->
+</div>
