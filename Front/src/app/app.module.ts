@@ -4,10 +4,15 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
 
+import { ClipboardModule } from 'ngx-clipboard';
+
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatSnackBarModule, MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,6 +24,7 @@ import { ProfileComponent } from './body/profile/profile.component';
 import { AddFileComponent } from './body/add-file/add-file.component';
 import { AdminPanelComponent } from './body/admin-panel/admin-panel.component';
 import { HeaderComponent } from './header/header.component';
+import { FileLinkComponent } from './body/file-list/file-link/file-link.component';
 
 @NgModule({
   declarations: [
@@ -29,8 +35,10 @@ import { HeaderComponent } from './header/header.component';
     ProfileComponent,
     AddFileComponent,
     AdminPanelComponent,
-    HeaderComponent
+    HeaderComponent,
+    FileLinkComponent
   ],
+  entryComponents: [FileLinkComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -39,9 +47,14 @@ import { HeaderComponent } from './header/header.component';
     MatFormFieldModule,
     MatButtonModule,
     MatInputModule,
-    MatIconModule
+    MatIconModule,
+    MatListModule,
+    MatDividerModule,
+    MatSnackBarModule,
+    ClipboardModule
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+  { provide: MAT_SNACK_BAR_DATA, useValue: {} }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

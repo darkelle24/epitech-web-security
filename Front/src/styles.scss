@@ -35,7 +35,8 @@ body {
     align-self: flex-end;
 }
 
-.mat-focused .mat-form-field-label {
+.mat-focused .mat-form-field-label,
+.mat-list-item {
     /*change color of label*/
     color: var(--text_color) !important;
 }
@@ -64,4 +65,8 @@ input:-webkit-autofill:active {
 
 input:-webkit-autofill {
     -webkit-text-fill-color: var(--text_color) !important;
+}
+
+.mat-divider {
+    border-top-color: var(--text_color);
 }
