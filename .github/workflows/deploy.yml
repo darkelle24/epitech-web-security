@@ -26,7 +26,7 @@ jobs:
         with:
           context: ./Front
           push: true
-          tags: cchalop1/epitech-security-web:latest
+          tags: cchalop1/epitech-security-web
       - name: Checkout
         uses: actions/checkout@v2
       - name: Set up QEMU
@@ -43,7 +43,7 @@ jobs:
         with:
           context: ./API
           push: true
-          tags: cchalop1/epitech-security-api:latest
+          tags: cchalop1/epitech-security-api
       - name: copy file via ssh password
         uses: appleboy/scp-action@master
         with:
