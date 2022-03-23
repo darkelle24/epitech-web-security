@@ -18,7 +18,6 @@ class Users(Document):
     username = StringField(unique=True, required=True,
                            min_length=2, max_length=20)
     password = StringField(required=True, min_length=8, max_length=145)
-    admin = BooleanField(default=False)
     account = EmbeddedDocumentField(Users_account)
     profile_picture = StringField(required=False, max_length=300)
     created = DateTimeField(default=datetime.now)

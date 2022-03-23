@@ -2,6 +2,7 @@ from app.routes.user.email import email
 from app.routes.authentication.token import token
 from app.routes.authentication.login import login
 from app.routes.authentication.register import register
+from app.routes.user.me import me
 from app.routes.testing.hello import testing
 from config import app
 from werkzeug.exceptions import HTTPException
@@ -16,8 +17,12 @@ app.register_blueprint(testing)
 # AUTHENTICATION ROUTES
 app.register_blueprint(register, url_prefix="/users")
 app.register_blueprint(login, url_prefix="/users")
-app.register_blueprint(email, url_prefix="/users/email")
 app.register_blueprint(token, url_prefix="/users/token")
+
+
+# USERS ROUTES
+app.register_blueprint(me, url_prefix="/users")
+app.register_blueprint(email, url_prefix="/users/email")
 
 
 @app.errorhandler(Exception)
