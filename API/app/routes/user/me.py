@@ -5,11 +5,14 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 from app.models.Users import Users
 from app.errors import *
 
+from app.middleware.bouncer import ban_checking
+
 me = Blueprint('me', __name__)
 
 
 @me.route('/me', methods=['GET'])
 @jwt_required()
+@ban_checking
 def me_():
     identity = get_jwt_identity()
 

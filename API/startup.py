@@ -4,6 +4,9 @@ from app.routes.authentication.login import login
 from app.routes.authentication.register import register
 from app.routes.user.me import me
 from app.routes.testing.hello import testing
+from app.routes.admin.users import admin_users
+from app.routes.admin.ban import admin_users_ban
+from app.routes.admin.admin import admin_users_admin
 from config import app
 from werkzeug.exceptions import HTTPException
 from flask import jsonify
@@ -23,6 +26,11 @@ app.register_blueprint(token, url_prefix="/users/token")
 # USERS ROUTES
 app.register_blueprint(me, url_prefix="/users")
 app.register_blueprint(email, url_prefix="/users/email")
+
+# ADMIN ROUTES
+app.register_blueprint(admin_users, url_prefix="/admin")
+app.register_blueprint(admin_users_ban, url_prefix="/admin")
+app.register_blueprint(admin_users_admin, url_prefix="/admin")
 
 
 @app.errorhandler(Exception)

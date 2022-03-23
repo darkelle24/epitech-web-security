@@ -41,3 +41,19 @@ class Users(Document):
     def unverified_email(self):
         self.account.is_email_verified = False
         self.save()
+
+    def ban_user(self):
+        self.account.is_banned = True
+        self.save()
+
+    def unban_user(self):
+        self.account.is_banned = False
+        self.save()
+
+    def op_user(self):
+        self.account.is_admin = True
+        self.save()
+
+    def deop_user(self):
+        self.account.is_admin = False
+        self.save()

@@ -7,7 +7,6 @@ from app.models.Users import Users
 from config import JWT_VALIDATION_KEY
 from app.errors import *
 
-
 import jwt
 
 email = Blueprint('email', __name__)
