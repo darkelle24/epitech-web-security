@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs';
 export class HeaderComponent implements OnInit, OnDestroy {
 
   profil: boolean = false
+  admin: boolean = false
 
   saveSub: Subscription
 
@@ -32,6 +33,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.profil = true;
     } else {
       this.profil = false;
+    }
+
+    if (url.split('?')[0] === '/admin') {
+      this.admin = true;
+    } else {
+      this.admin = false;
     }
   }
 
