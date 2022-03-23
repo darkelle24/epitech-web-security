@@ -1,3 +1,4 @@
 <div class="header">
-    <button mat-raised-button class="edit-butt">Edit Profil</button>
+    <button *ngIf="!profil" mat-raised-button class="edit-butt" (click)="goTo('/profil')">Edit Profil</button>
+    <button *ngIf="profil" mat-raised-button class="edit-butt" (click)="goTo('/file-list')">Back to home</button>
 </div>

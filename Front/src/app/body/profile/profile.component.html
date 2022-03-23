@@ -1,1 +1,28 @@
-<p>profile works!</p>
+<div class="file-comp">
+    <h1>Edit your profil</h1>
+
+    <div class="comp">
+        <h2>General</h2>
+        <mat-form-field style.fontSize.px="15" class="form" appearance="standard" color="white">
+            <mat-label>Email</mat-label>
+            <input matInput autocomplete="on" name="email" required>
+        </mat-form-field>
+        <mat-form-field style.fontSize.px="15" class="form" appearance="standard" color="white">
+            <mat-label>Username</mat-label>
+            <input matInput autocomplete="on" name="username" required>
+        </mat-form-field>
+
+        <h2>Security</h2>
+        <mat-form-field style.fontSize.px="15" class="form" appearance="standard" color="white">
+            <mat-label>Password</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" autocomplete="new-password" name="new-password" required>
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <h2 class="red">Danger Zone</h2>
+        <button mat-raised-button class="empty">Empty Account</button>
+        <button mat-raised-button class="delete">Delete Account</button>
+    </div>
+</div>

@@ -70,3 +70,7 @@ input:-webkit-autofill {
 .mat-divider {
     border-top-color: var(--text_color);
 }
+
+.mat-form-field-appearance-standard .mat-form-field-flex {
+    padding-top: 0px!important;
+}

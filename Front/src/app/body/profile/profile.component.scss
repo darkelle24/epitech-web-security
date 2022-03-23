@@ -1,0 +1,27 @@
+.file-comp {
+    width: 35vw;
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+}
+
+.red {
+    color: red!important;
+}
+
+.comp {
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+    width: 100%;
+}
+
+.empty {}
+
+.delete {
+    margin-top: 0.75em;
+    background-color: red;
+    color: var(--text_color);
+}

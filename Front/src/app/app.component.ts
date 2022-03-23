@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AuthentificationService } from './_services/authentification.service';
 
 @Component({
@@ -7,23 +8,32 @@ import { AuthentificationService } from './_services/authentification.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnDestroy {
   loginRegister = true;
 
-  constructor(private router: Router, private auth: AuthentificationService) {
-    router.events.subscribe({
+  saveSub: Subscription
+
+  constructor(private router: Router) {
+    this.check(router.url)
+
+    this.saveSub = router.events.subscribe({
       next: (event) => {
         if (event instanceof NavigationEnd) {
-
-          console.log(event);
-          if (event.urlAfterRedirects.split('?')[0] === '/login' || event.urlAfterRedirects.split('?')[0] === '/register' || event.urlAfterRedirects.split('?')[0] === '/forgot_password' || event.urlAfterRedirects.split('?')[0] === '/reset_forgot_password') {
-            this.loginRegister = true;
-          } else {
-            this.loginRegister = false;
-          }
+          this.check(event.urlAfterRedirects)
         }
-
       }
     });
+  }
+
+  check(url: string) {
+    if (url.split('?')[0] === '/login' || url.split('?')[0] === '/register' || url.split('?')[0] === '/forgot_password' || url.split('?')[0] === '/reset_forgot_password') {
+      this.loginRegister = true;
+    } else {
+      this.loginRegister = false;
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.saveSub.unsubscribe()
   }
 }
