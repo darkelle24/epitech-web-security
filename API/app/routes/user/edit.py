@@ -10,6 +10,26 @@ from app.middleware.bouncer import ban_checking
 edit = Blueprint('edit', __name__)
 
 
+@edit.route('/', methods=['PUT'])
+@jwt_required()
+@ban_checking
+def edit_():
+    identity = get_jwt_identity()
+    body = request.get_json()
+
+    if not 'username' in body:
+        return field_invalid_username(), 403
+    try:
+        user = Users.objects(id=identity).first()
+        user.username = body['username']
+
+        user.save()
+
+        return jsonify({"msg": "Account successfully updated"}), 201
+    except:
+        return try_except_error(), 403
+
+
 @edit.route('/password', methods=['PUT'])
 @jwt_required()
 @ban_checking
