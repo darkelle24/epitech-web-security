@@ -3,6 +3,9 @@ from app.routes.authentication.token import token
 from app.routes.authentication.login import login
 from app.routes.authentication.register import register
 from app.routes.user.me import me
+from app.routes.user.empty_account import account_empty
+from app.routes.user.delete_account import account_delete
+from app.routes.user.me import me
 from app.routes.testing.hello import testing
 from app.routes.admin.users import admin_users
 from app.routes.user.edit import edit
@@ -28,6 +31,8 @@ app.register_blueprint(token, url_prefix="/users/token")
 app.register_blueprint(me, url_prefix="/users")
 app.register_blueprint(email, url_prefix="/users/email")
 app.register_blueprint(edit, url_prefix="/users/edit")
+app.register_blueprint(account_empty, url_prefix="/users/empty")
+app.register_blueprint(account_delete, url_prefix="/users/delete")
 
 
 # ADMIN ROUTES
