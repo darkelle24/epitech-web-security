@@ -5,6 +5,7 @@ from app.routes.authentication.register import register
 from app.routes.user.me import me
 from app.routes.testing.hello import testing
 from app.routes.admin.users import admin_users
+from app.routes.user.edit import edit
 from app.routes.admin.ban import admin_users_ban
 from app.routes.admin.admin import admin_users_admin
 from config import app
@@ -26,6 +27,8 @@ app.register_blueprint(token, url_prefix="/users/token")
 # USERS ROUTES
 app.register_blueprint(me, url_prefix="/users")
 app.register_blueprint(email, url_prefix="/users/email")
+app.register_blueprint(edit, url_prefix="/users/edit")
+
 
 # ADMIN ROUTES
 app.register_blueprint(admin_users, url_prefix="/admin")
