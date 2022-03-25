@@ -283,6 +283,14 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Empty Account",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
 				}
 			]
 		},
