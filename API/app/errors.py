@@ -43,6 +43,10 @@ def try_except_error():
     return {"error": "An error has occured, retry in a few minutes"}
 
 
+def field_invalid_email():
+    return {"error": "Invalid resource provided, expect: ['email']"}
+
+
 def user_banned():
     return {"error": "Acces denied"}
 
