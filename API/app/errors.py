@@ -47,6 +47,10 @@ def field_invalid_email():
     return {"error": "Invalid resource provided, expect: ['email']"}
 
 
+def field_invalid_username():
+    return {"error": "Invalid resource provided, expect: ['username']"}
+
+
 def user_banned():
     return {"error": "Acces denied"}
 
