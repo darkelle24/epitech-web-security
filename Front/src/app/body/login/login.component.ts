@@ -10,7 +10,6 @@ import { AuthentificationService } from 'src/app/_services/authentification.serv
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  constructor(private formBuilder: FormBuilder) {}
 
   isLoading: boolean = false
 
@@ -23,7 +22,7 @@ export class LoginComponent implements OnInit {
 
   constructor(public auth: AuthentificationService, private router: Router) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   login() {
     this.isLoading = true
