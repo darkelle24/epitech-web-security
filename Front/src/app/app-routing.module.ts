@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { LoginComponent } from './body/login/login.component';
+import { RegisterComponent } from './body/register/register.component';
 
 import { AuthGuard } from './_helpers/auth.guard';
 import { NoAuthGuard } from './_helpers/no-auth.guard';
@@ -26,10 +28,12 @@ const routes: Routes = [
 
   { path: '', redirectTo: 'file-list', pathMatch: 'full' },
   { path: '**', redirectTo: 'file-list', pathMatch: 'full' }
+
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
+export const routingComponents = [LoginComponent, RegisterComponent];
