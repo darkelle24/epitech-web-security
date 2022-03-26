@@ -41,7 +41,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"EMAIL\",\n    \"password\": \"PASSWORD\"\n}",
+							"raw": "{\n    \"email\": \"antonin@alors-la.fr\",\n    \"password\": \"Password!1\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -285,10 +285,48 @@
 					"response": []
 				},
 				{
+					"name": "Delete Account",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{BEARER TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users/delete",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Empty Account",
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users/empty",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"empty"
+							]
+						}
 					},
 					"response": []
 				}
