@@ -18,7 +18,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './body/login/login.component';
@@ -68,4 +68,4 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   { provide: MAT_SNACK_BAR_DATA, useValue: {} }],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
