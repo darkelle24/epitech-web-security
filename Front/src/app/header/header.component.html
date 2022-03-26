@@ -4,4 +4,6 @@
 
     <button *ngIf="!profil" mat-raised-button class="edit-butt" (click)="goTo('/profil')">Edit Profil</button>
     <button *ngIf="profil" mat-raised-button class="edit-butt" (click)="goTo('/file-list')">Back to home</button>
+
+    <button mat-raised-button class="edit-butt" (click)="logout()">Logout</button>
 </div>

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, isDevMode } from '@angular/core';
 import {
   HttpRequest,
   HttpHandler,
@@ -9,57 +9,70 @@ import {
 import { Observable, of, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { AuthentificationService } from '../_services/authentification.service';
-import { catchError } from 'rxjs/operators';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { ErrorService } from '../_services/error.service';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
 
-  constructor(private authenticationService: AuthentificationService, private router: Router) { }
+  constructor(private authenticationService: AuthentificationService, private router: Router, private error: ErrorService) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const url = this.router.url
+
+    return next.handle(request).pipe(
+      catchError((error) => {
+        if (error instanceof HttpErrorResponse) {
+          if (url !== '/users/login' && error.status === 401) {
+            this.handle401Error(request, next);
+          } else {
+            this.error.showError("Error " + error.status + ": " + error.error.error)
+            if (isDevMode()) {
+              console.error(error)
+            }
+          }
+        }
+        return throwError(() => error);
+      })
+    );
+  }
+
+  private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
+    if (this.authenticationService.currentUserValue.refresh_token)
+      return this.authenticationService.refreshToken().pipe(
+        switchMap((token: any) => {
+          return next.handle(this.addTokenHeader(request));
+        }),
+        catchError((err) => {
+          this.authenticationService.logout();
+          return throwError(() => err);
+        })
+      );
+    return undefined
+  }
+
+  private addTokenHeader(request: HttpRequest<any>) {
     const currentUser = this.authenticationService.currentUserValue;
     const isLoggedIn = currentUser && currentUser.token;
     const isApiUrl = request.url.startsWith(environment.apiUrl);
     const url = this.router.url
 
     if (isLoggedIn && isApiUrl) {
-      request = request.clone({
-        setHeaders: {
-          Authorization: `Bearer ${currentUser.token}`
-        }
-      });
-    }
-
-    return next.handle(request).pipe(
-      catchError((error) => {
-
-        let handled: boolean = false;
-        if (error instanceof HttpErrorResponse) {
-          if (error.error instanceof ErrorEvent) {
-          } else if (url !== '/login') {
-            console.log(`error status : ${error.status} ${error.statusText}`);
-            switch (error.status) {
-              case 401:      //login
-                console.log('unauthorized logout')
-                this.authenticationService.logout()
-                handled = true;
-                break;
-              case 403:      //login
-                console.log('unauthorized logout')
-                this.authenticationService.logout()
-                handled = true;
-                break;
-            }
+      if (url === '/users/refresh') {
+        request = request.clone({
+          setHeaders: {
+            Authorization: `Bearer ${currentUser.refresh_token}`
           }
-        }
-
-        if (handled) {
-          return of(error);
-        } else {
-          return throwError(() => error);
-        }
-      })
-    );
+        });
+      } else {
+        request = request.clone({
+          setHeaders: {
+            Authorization: `Bearer ${currentUser.access_token}`
+          }
+        });
+      }
+    }
+    return request
   }
 }

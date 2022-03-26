@@ -78,3 +78,14 @@ input:-webkit-autofill {
 .mat-checkbox-frame {
     border-color: white
 }
+
+.configError {
+    color: whitesmoke;
+    background-color: red;
+    font-size: 40px!important;
+}
+
+.mat-button-disabled {
+    color: var(--text_color_sec)!important;
+    cursor: not-allowed!important;
+}

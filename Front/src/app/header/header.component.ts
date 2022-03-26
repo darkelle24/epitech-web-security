@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { AuthentificationService } from '../_services/authentification.service';
 
 @Component({
   selector: 'app-header',
@@ -14,7 +15,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   saveSub: Subscription
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private auth: AuthentificationService) {
     this.check(router.url)
 
     this.saveSub = router.events.subscribe({
@@ -26,6 +27,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
       }
     });
+  }
+
+  logout() {
+    this.auth.logout()
   }
 
   check(url: string) {
