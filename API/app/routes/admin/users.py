@@ -12,9 +12,21 @@ admin_users = Blueprint('admin_users', __name__)
 @admin_users.route('/users/<user_id>', methods=['GET'])
 @jwt_required()
 @admin_required
-def list_users_(user_id):
+def list_user_infos_(user_id):
     try:
         user = Users.objects(id=user_id).fields(
+            password=False, account__is_active=False, created=False)
+        return jsonify(user), 200
+    except:
+        return try_except_error(), 500
+
+
+@admin_users.route('/users/', methods=['GET'])
+@jwt_required()
+@admin_required
+def list_users_():
+    try:
+        user = Users.objects().fields(
             password=False, account__is_active=False, created=False)
         return jsonify(user), 200
     except:
