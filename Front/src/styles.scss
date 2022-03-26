@@ -38,11 +38,90 @@ $front-theme: mat.define-light-theme(
 
 html,
 body {
-  height: 100%;
+    height: 100%;
 }
+
 body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  background-color: #1e1e1e;
-  color: #ffffff;
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    color: var(--text_color)!important;
+}
+
+:root {
+    --background_color: #1E1E1E;
+    --text_color: #FFFFFF;
+    --text_color_sec: #8E8E8E;
+}
+
+.aligner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.aligner-item {
+    max-width: 50vw;
+}
+
+.aligner-item--top {
+    align-self: flex-start;
+}
+
+.aligner-item--bottom {
+    align-self: flex-end;
+}
+
+.mat-focused .mat-form-field-label,
+.mat-list-item {
+    /*change color of label*/
+    color: var(--text_color) !important;
+}
+
+.mat-form-field-underline {
+    /*change color of underline*/
+    background-color: var(--text_color_sec) !important;
+}
+
+.mat-form-field-ripple {
+    /*change color of underline when focused*/
+    background-color: var(--text_color_sec) !important;
+    ;
+}
+
+.mat-form-field-label {
+    color: var(--text_color_sec)!important;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px var(--background_color) inset !important;
+}
+
+input:-webkit-autofill {
+    -webkit-text-fill-color: var(--text_color) !important;
+}
+
+.mat-divider {
+    border-top-color: var(--text_color);
+}
+
+.mat-form-field-appearance-standard .mat-form-field-flex {
+    padding-top: 0px!important;
+}
+
+.mat-checkbox-frame {
+    border-color: white
+}
+
+.configError {
+    color: whitesmoke;
+    background-color: red;
+    font-size: 40px!important;
+}
+
+.mat-button-disabled {
+    color: var(--text_color_sec)!important;
+    cursor: not-allowed!important;
 }

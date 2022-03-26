@@ -1,0 +1,9 @@
+<div class="header">
+    <button *ngIf="!admin && auth.currentUserValue !== null && auth.currentUserValue.account.is_admin === true" mat-raised-button class="edit-butt" (click)="goTo('/admin')">Admin panel</button>
+    <button *ngIf="admin && auth.currentUserValue !== null && auth.currentUserValue.account.is_admin === true" mat-raised-button class="edit-butt" (click)="goTo('/file-list')">Back to home</button>
+
+    <button *ngIf="!profil" mat-raised-button class="edit-butt" (click)="goTo('/profil')">Edit Profil</button>
+    <button *ngIf="profil" mat-raised-button class="edit-butt" (click)="goTo('/file-list')">Back to home</button>
+
+    <button mat-raised-button class="edit-butt" (click)="logout()">Logout</button>
+</div>
