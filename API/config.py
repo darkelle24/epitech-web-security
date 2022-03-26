@@ -8,7 +8,8 @@ from flask_mongoengine import MongoEngine
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)
+CORS(app,   supports_credentials=True)
+
 bcrypt = Bcrypt(app)
 
 MONGO_DB_COMMON_ALIAS = 'db_common'
