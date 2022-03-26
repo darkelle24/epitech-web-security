@@ -15,22 +15,22 @@ export class ApiService {
   adminRoute = `${environment.apiUrl}admin/users`
 
   listUser(): Observable<any> {
-    return this.http.get<any>(this.adminRoute);
+    return this.http.get<any>(this.adminRoute + '/');
   }
 
-  banUser(userId: number): Observable<any> {
+  banUser(userId: string): Observable<any> {
     return this.http.post<any>(this.adminRoute + '/' + userId + '/ban', {});
   }
 
-  unBanUser(userId: number): Observable<any> {
+  unBanUser(userId: string): Observable<any> {
     return this.http.post<any>(this.adminRoute + '/' + userId + '/unban', {});
   }
 
-  opUser(userId: number): Observable<any> {
+  opUser(userId: string): Observable<any> {
     return this.http.post<any>(this.adminRoute + '/' + userId + '/op', {});
   }
 
-  deOpUser(userId: number): Observable<any> {
+  deOpUser(userId: string): Observable<any> {
     return this.http.post<any>(this.adminRoute + '/' + userId + '/deop', {});
   }
 }

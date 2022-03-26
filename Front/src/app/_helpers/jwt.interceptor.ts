@@ -21,6 +21,8 @@ export class JwtInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const url = this.router.url
 
+    request = this.addTokenHeader(request)
+
     return next.handle(request).pipe(
       catchError((error) => {
         if (error instanceof HttpErrorResponse) {
@@ -42,7 +44,15 @@ export class JwtInterceptor implements HttpInterceptor {
     if (this.authenticationService.currentUserValue.refresh_token)
       return this.authenticationService.refreshToken().pipe(
         switchMap((token: any) => {
-          return next.handle(this.addTokenHeader(request));
+          return next.handle(this.addTokenHeader(request)).pipe(
+            catchError((error) => {
+              this.error.showError("Error " + error.status + ": " + error.error.error)
+              if (isDevMode()) {
+                console.error(error)
+              }
+              return throwError(() => error);
+            })
+          );
         }),
         catchError((err) => {
           this.authenticationService.logout();
@@ -53,8 +63,8 @@ export class JwtInterceptor implements HttpInterceptor {
   }
 
   private addTokenHeader(request: HttpRequest<any>) {
-    const currentUser = this.authenticationService.currentUserValue;
-    const isLoggedIn = currentUser && currentUser.token;
+    const currentUserToken = this.authenticationService.currentUserTokenValue;
+    const isLoggedIn = currentUserToken && currentUserToken.refresh_token;
     const isApiUrl = request.url.startsWith(environment.apiUrl);
     const url = this.router.url
 
@@ -62,13 +72,13 @@ export class JwtInterceptor implements HttpInterceptor {
       if (url === '/users/refresh') {
         request = request.clone({
           setHeaders: {
-            Authorization: `Bearer ${currentUser.refresh_token}`
+            Authorization: `Bearer ${currentUserToken.refresh_token}`
           }
         });
       } else {
         request = request.clone({
           setHeaders: {
-            Authorization: `Bearer ${currentUser.access_token}`
+            Authorization: `Bearer ${currentUserToken.access_token}`
           }
         });
       }

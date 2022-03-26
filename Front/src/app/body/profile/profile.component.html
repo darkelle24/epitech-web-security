@@ -1,28 +1,54 @@
 <div class="file-comp">
     <h1>Edit your profil</h1>
 
-    <div class="comp">
+    <div style="display: flex; justify-content: center; align-items: center">
+        <mat-spinner *ngIf="isLoading" diameter="60">
+        </mat-spinner>
+    </div>
+
+    <div class="comp" *ngIf="!isLoading">
         <h2>General</h2>
-        <mat-form-field style.fontSize.px="15" class="form" appearance="standard" color="white">
-            <mat-label>Email</mat-label>
-            <input matInput autocomplete="on" name="email" required>
-        </mat-form-field>
-        <mat-form-field style.fontSize.px="15" class="form" appearance="standard" color="white">
-            <mat-label>Username</mat-label>
-            <input matInput autocomplete="on" name="username" required>
-        </mat-form-field>
+        <div class="field">
+            <mat-form-field style.fontSize.px="15" class="form" appearance="standard" color="white">
+                <mat-label>Email</mat-label>
+                <input type="email" [formControl]="email" matInput autocomplete="on" name="email" required>
+            </mat-form-field>
+            <button mat-raised-button (click)="changeEmail()" *ngIf="!isLoadingEmail" class="change">Change</button>
+            <div style="display: flex; justify-content: center; align-items: center">
+                <mat-spinner *ngIf="isLoadingEmail" diameter="30">
+                </mat-spinner>
+            </div>
+        </div>
+        <div class="field">
+            <mat-form-field style.fontSize.px="15" class="form" appearance="standard" color="white">
+                <mat-label>Username</mat-label>
+                <input matInput [formControl]="username" autocomplete="on" name="username" required>
+            </mat-form-field>
+            <button mat-raised-button (click)="changeUsername()" *ngIf="!isLoadingUsername" class="change">Change</button>
+            <div style="display: flex; justify-content: center; align-items: center">
+                <mat-spinner *ngIf="isLoadingUsername" diameter="30">
+                </mat-spinner>
+            </div>
+        </div>
 
         <h2>Security</h2>
-        <mat-form-field style.fontSize.px="15" class="form" appearance="standard" color="white">
-            <mat-label>Password</mat-label>
-            <input matInput [type]="hide ? 'password' : 'text'" autocomplete="new-password" name="new-password" required>
-            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-          </button>
-        </mat-form-field>
+        <div class="field">
+            <mat-form-field style.fontSize.px="15" class="form" appearance="standard" color="white">
+                <mat-label>Password</mat-label>
+                <input matInput [formControl]="password" [type]="hide ? 'password' : 'text'" autocomplete="new-password" name="new-password" required>
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field>
+            <button mat-raised-button *ngIf="!isLoadingPassword" (click)="changePassword()" class="change">Change</button>
+            <div style="display: flex; justify-content: center; align-items: center">
+                <mat-spinner *ngIf="isLoadingPassword" diameter="30">
+                </mat-spinner>
+            </div>
+        </div>
 
         <h2 class="red">Danger Zone</h2>
-        <button mat-raised-button class="empty">Empty Account</button>
-        <button mat-raised-button class="delete">Delete Account</button>
+        <button mat-raised-button (click)="empty()" class="empty">Empty Account</button>
+        <button mat-raised-button (click)="removeMe()" class="delete">Delete Account</button>
     </div>
 </div>

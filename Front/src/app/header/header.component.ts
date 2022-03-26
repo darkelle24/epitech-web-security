@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   saveSub: Subscription
 
-  constructor(private router: Router, private auth: AuthentificationService) {
+  constructor(private router: Router, public auth: AuthentificationService) {
     this.check(router.url)
 
     this.saveSub = router.events.subscribe({

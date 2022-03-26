@@ -29,11 +29,19 @@ export class LoginComponent implements OnInit {
     this.isLoading = true
     this.auth.login(this.email.value, this.password.value).subscribe({
       next: (value: any) => {
-        this.isLoading = false;
         if (isDevMode()) {
           console.log(value)
         }
-        this.goTo("/file-list")
+        this.auth.infoMe().subscribe({
+          next: (value: any) => {
+            this.isLoading = false;
+            if (isDevMode()) {
+              console.log(value)
+            }
+            this.goTo("/file-list")
+          },
+          error: (err: any) => this.isLoading = false
+        })
       },
       error: (err: any) => this.isLoading = false
     })
