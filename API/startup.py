@@ -11,6 +11,7 @@ from app.routes.admin.users import admin_users
 from app.routes.user.edit import edit
 from app.routes.admin.ban import admin_users_ban
 from app.routes.admin.admin import admin_users_admin
+from app.routes.files.upload import file_upload
 from config import app
 from werkzeug.exceptions import HTTPException
 from flask import jsonify
@@ -40,6 +41,8 @@ app.register_blueprint(admin_users, url_prefix="/admin")
 app.register_blueprint(admin_users_ban, url_prefix="/admin")
 app.register_blueprint(admin_users_admin, url_prefix="/admin")
 
+# FILES ROUTES
+app.register_blueprint(file_upload, url_prefix="/files")
 
 @app.errorhandler(Exception)
 def handle_error(error):
@@ -47,6 +50,5 @@ def handle_error(error):
     if isinstance(error, HTTPException):
         code = error.code
     return jsonify(error=str(error)), code
-
 
 app.run(host="0.0.0.0")
