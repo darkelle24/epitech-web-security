@@ -6,9 +6,10 @@ from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager
 from flask_mongoengine import MongoEngine
 from flask_cors import CORS
+from mongoengine import connect
 
 app = Flask(__name__)
-CORS(app,   supports_credentials=True)
+CORS(app, supports_credentials=True)
 
 bcrypt = Bcrypt(app)
 
@@ -33,3 +34,4 @@ if DATABASE_URL:
         {'host': DATABASE_URL, 'alias': MONGO_DB_COMMON_ALIAS}]
     db = MongoEngine()
     db.init_app(app)
+    connect(MONGO_DB_COMMON_ALIAS, alias='default')

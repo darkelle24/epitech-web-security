@@ -27,6 +27,7 @@ MarkupSafe==2.0.1
 mccabe==0.6.1
 mongoengine==0.23.1
 mongomock==3.23.0
+Pillow==7.0.0
 platformdirs==2.4.0
 pycparser==2.20
 PyJWT==2.0.0

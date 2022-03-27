@@ -1,7 +1,7 @@
 from datetime import datetime
 from mongoengine import Document, EmbeddedDocument
 from mongoengine import DateTimeField
-from mongoengine.fields import BooleanField, EmbeddedDocumentField, EmbeddedDocumentListField, EmailField, StringField, ListField
+from mongoengine.fields import BooleanField, EmbeddedDocumentField, EmailField, StringField
 from config import MONGO_DB_COMMON_ALIAS
 from config import bcrypt
 
@@ -19,7 +19,6 @@ class Users(Document):
     password = StringField(required=True, min_length=8, max_length=145)
     account = EmbeddedDocumentField(Users_account)
     profile_picture = StringField(required=False, max_length=300)
-    files = ListField(StringField())
     created = DateTimeField(default=datetime.now)
     meta = {'db_alias': MONGO_DB_COMMON_ALIAS, 'collection': 'users'}
 

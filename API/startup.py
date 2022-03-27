@@ -11,14 +11,13 @@ from app.routes.admin.users import admin_users
 from app.routes.user.edit import edit
 from app.routes.admin.ban import admin_users_ban
 from app.routes.admin.admin import admin_users_admin
-from app.routes.files.upload import file_upload
+from app.routes.files.upload import file_upload, my_uploads
 from config import app
 from werkzeug.exceptions import HTTPException
 from flask import jsonify
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join('.', 'app')))
-
 
 app.register_blueprint(testing)
 
