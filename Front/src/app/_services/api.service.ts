@@ -49,4 +49,8 @@ export class ApiService {
       observe: 'events'
     });
   }
+
+  deleteFile(file_id: string) {
+    return this.http.delete<any>(this.fileRoute + '/' + file_id);
+  }
 }

@@ -1,5 +1,6 @@
 import { HttpEvent, HttpEventType } from '@angular/common/http';
-import { Component, isDevMode, OnInit } from '@angular/core';
+import { Component, isDevMode, OnDestroy, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { NgxFileDropEntry } from 'ngx-file-drop';
 import { ApiService } from 'src/app/_services/api.service';
 import { ErrorService } from 'src/app/_services/error.service';
@@ -9,7 +10,7 @@ import { ErrorService } from 'src/app/_services/error.service';
   templateUrl: './add-file.component.html',
   styleUrls: ['./add-file.component.scss']
 })
-export class AddFileComponent implements OnInit {
+export class AddFileComponent implements OnInit, OnDestroy {
 
   isLoading: boolean = false
 
@@ -17,9 +18,13 @@ export class AddFileComponent implements OnInit {
 
   progress: number = -1
 
-  constructor(private error: ErrorService, private api: ApiService) { }
+  constructor(private error: ErrorService, private api: ApiService, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
+  }
+
+  ngOnDestroy(): void {
+    this._snackBar.dismiss()
   }
 
   public files: NgxFileDropEntry[] = [];
@@ -72,6 +77,7 @@ export class AddFileComponent implements OnInit {
                   if (isDevMode()) {
                     console.log('File sent', event.body);
                   }
+                  this.fileSend("The file is upload")
                   this.progress = -1;
               }
             },
@@ -95,5 +101,12 @@ export class AddFileComponent implements OnInit {
 
   public fileLeave(event: any) {
     //console.log(event);
+  }
+
+  fileSend(message: string) {
+    this._snackBar.open(message, undefined, {
+      duration: 1000,
+      panelClass: "configGood"
+    });
   }
 }

@@ -46,10 +46,10 @@ export class FileListComponent implements OnInit, OnDestroy {
     this._snackBar.dismiss()
   }
 
-  openSnackBar(code: string) {
+  openSnackBar(code: string, publicType: boolean) {
     code = environment.apiUrl + "files/" + code
     this._snackBar.openFromComponent(FileLinkComponent, {
-      data: { code: code },
+      data: { code: code, public: publicType },
       panelClass: "no-max-width",
       duration: 5000
     });
@@ -57,6 +57,31 @@ export class FileListComponent implements OnInit, OnDestroy {
 
   goTo(link: string) {
     this.router.navigate([link]);
+  }
+
+  deleteFile(code: string, item: any) {
+    item.delete = true
+    this.api.deleteFile(code).subscribe({
+      next: (value: any) => {
+        if (isDevMode()) {
+          console.log(value)
+        }
+        this.api.listMyFiles().subscribe({
+          next: (value: any[]) => {
+            if (isDevMode()) {
+              console.log(value)
+            }
+            this.list = value
+          },
+          error: (error: any) => {
+            item.delete = false
+          }
+        })
+      },
+      error: (error: any) => {
+        item.delete = false
+      }
+    })
   }
 
 }

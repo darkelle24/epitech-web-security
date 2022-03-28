@@ -6,7 +6,7 @@
     <button mat-icon-button (click)="copy()">
       <mat-icon matTooltip="Copy link">content_copy</mat-icon>
     </button>
-    <!-- <button mat-icon-button (click)="open()">
+    <button *ngIf="data.public" mat-icon-button (click)="open()">
       <mat-icon matTooltip="Open file">open_in_new</mat-icon>
-    </button> -->
+    </button>
 </div>
