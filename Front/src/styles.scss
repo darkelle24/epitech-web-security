@@ -114,3 +114,7 @@ input:-webkit-autofill {
     color: var(--text_color_sec)!important;
     cursor: not-allowed!important;
 }
+
+.no-max-width {
+    max-width: none!important;
+}

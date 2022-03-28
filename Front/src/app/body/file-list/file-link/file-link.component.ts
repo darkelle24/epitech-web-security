@@ -20,4 +20,8 @@ export class FileLinkComponent {
     this.snackBarRef.dismiss()
   }
 
+  open() {
+    window.open(this.data.code, "_blank");
+  }
+
 }

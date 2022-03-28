@@ -3,6 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/_services/api.service';
 import { AuthentificationService } from 'src/app/_services/authentification.service';
+import { environment } from 'src/environments/environment';
 import { FileLinkComponent } from './file-link/file-link.component';
 
 @Component({
@@ -46,8 +47,10 @@ export class FileListComponent implements OnInit, OnDestroy {
   }
 
   openSnackBar(code: string) {
+    code = environment.apiUrl + "files/" + code
     this._snackBar.openFromComponent(FileLinkComponent, {
       data: { code: code },
+      panelClass: "no-max-width",
       duration: 5000
     });
   }
