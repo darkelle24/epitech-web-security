@@ -34,4 +34,4 @@ if DATABASE_URL:
         {'host': DATABASE_URL, 'alias': MONGO_DB_COMMON_ALIAS}]
     db = MongoEngine()
     db.init_app(app)
-    connect('AttackDefend', alias='default')
+    connect(host=DATABASE_URL)
