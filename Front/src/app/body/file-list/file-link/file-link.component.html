@@ -4,6 +4,9 @@
         <span class="code">{{data.code}}</span>
     </div>
     <button mat-icon-button (click)="copy()">
-      <mat-icon>content_copy</mat-icon>
+      <mat-icon matTooltip="Copy link">content_copy</mat-icon>
+    </button>
+    <button *ngIf="data.public" mat-icon-button (click)="open()">
+      <mat-icon matTooltip="Open file">open_in_new</mat-icon>
     </button>
 </div>

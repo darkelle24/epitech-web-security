@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { HttpEvent, HttpEventType } from '@angular/common/http';
+import { Component, isDevMode, OnDestroy, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { NgxFileDropEntry } from 'ngx-file-drop';
+import { ApiService } from 'src/app/_services/api.service';
 import { ErrorService } from 'src/app/_services/error.service';
 
 @Component({
@@ -7,11 +10,21 @@ import { ErrorService } from 'src/app/_services/error.service';
   templateUrl: './add-file.component.html',
   styleUrls: ['./add-file.component.scss']
 })
-export class AddFileComponent implements OnInit {
+export class AddFileComponent implements OnInit, OnDestroy {
 
-  constructor(private error: ErrorService) { }
+  isLoading: boolean = false
+
+  publicType: boolean = false
+
+  progress: number = -1
+
+  constructor(private error: ErrorService, private api: ApiService, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
+  }
+
+  ngOnDestroy(): void {
+    this._snackBar.dismiss()
   }
 
   public files: NgxFileDropEntry[] = [];
@@ -34,26 +47,45 @@ export class AddFileComponent implements OnInit {
             this.error.showError("Only accept .pdf, .docx, .jpeg, .png")
             return
           }
-          // Here you can access the real file
-          //console.log(droppedFile.relativePath, file);
 
-          console.log(this.files)
-
-          /**
-          // You could upload it like this:
           const formData = new FormData()
-          formData.append('logo', file, relativePath)
+          formData.append('files', file, file.name)
 
-          // Headers
-          const headers = new HttpHeaders({
-            'security-token': 'mytoken'
-          })
+          this.isLoading = true
+          this.progress = 0;
+          this.api.uploadFile(formData, this.publicType).subscribe({
+            next: (event: HttpEvent<any>) => {
 
-          this.http.post('https://mybackend.com/api/upload/sanitize-and-save-logo', formData, { headers: headers, responseType: 'blob' })
-          .subscribe(data => {
-            // Sanitized logo returned from backend
+              switch (event.type) {
+                case HttpEventType.Sent:
+                  if (isDevMode()) {
+                    console.log('Request has been made!');
+                  }
+                  break;
+                case HttpEventType.ResponseHeader:
+                  if (isDevMode())
+                    console.log('Response header has been received!');
+                  break;
+                case HttpEventType.UploadProgress:
+                  if (isDevMode())
+                    console.log(event);
+                  if (event.total)
+                    this.progress = Math.round(event.loaded / event.total * 100);
+                  break;
+                case HttpEventType.Response:
+                  this.isLoading = false;
+                  if (isDevMode()) {
+                    console.log('File sent', event.body);
+                  }
+                  this.fileSend("The file is upload")
+                  this.progress = -1;
+              }
+            },
+            error: (error: any) => {
+              this.isLoading = false;
+              this.progress = -1;
+            }
           })
-          **/
 
         });
       } else {
@@ -69,5 +101,12 @@ export class AddFileComponent implements OnInit {
 
   public fileLeave(event: any) {
     //console.log(event);
+  }
+
+  fileSend(message: string) {
+    this._snackBar.open(message, undefined, {
+      duration: 1000,
+      panelClass: "configGood"
+    });
   }
 }

@@ -29,3 +29,8 @@ ngx-file-drop::ng-deep>div {
 ngx-file-drop::ng-deep>div>div {
     height: 100%!important;
 }
+
+.progress-bar {
+    border-radius: 50px;
+    height: 20px;
+}
