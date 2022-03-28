@@ -17,6 +17,7 @@ import { MatSnackBarModule, MAT_SNACK_BAR_DATA } from '@angular/material/snack-b
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -62,10 +63,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatTooltipModule,
     MatCheckboxModule,
     NgxFileDropModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatProgressBarModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   { provide: MAT_SNACK_BAR_DATA, useValue: {} }],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

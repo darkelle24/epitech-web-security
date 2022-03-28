@@ -1,6 +1,7 @@
 import { Component, isDevMode, OnDestroy, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { ApiService } from 'src/app/_services/api.service';
 import { AuthentificationService } from 'src/app/_services/authentification.service';
 import { FileLinkComponent } from './file-link/file-link.component';
 
@@ -12,9 +13,9 @@ import { FileLinkComponent } from './file-link/file-link.component';
 export class FileListComponent implements OnInit, OnDestroy {
   isLoading: boolean = true
 
-  list: any[] = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]
+  list: any[] = []
 
-  constructor(private _snackBar: MatSnackBar, private router: Router, public auth: AuthentificationService) { }
+  constructor(private _snackBar: MatSnackBar, private router: Router, private api: ApiService, public auth: AuthentificationService) { }
 
   ngOnInit(): void {
     this.auth.infoMe().subscribe({
@@ -24,6 +25,19 @@ export class FileListComponent implements OnInit, OnDestroy {
         }
       },
       error: (err: any) => { }
+    })
+
+    this.api.listMyFiles().subscribe({
+      next: (value: any[]) => {
+        this.isLoading = false;
+        if (isDevMode()) {
+          console.log(value)
+        }
+        this.list = value
+      },
+      error: (error: any) => {
+        this.isLoading = false;
+      }
     })
   }
 
