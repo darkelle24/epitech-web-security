@@ -50,3 +50,16 @@ def download(user, file_id):
       if user == 'noauth' or file.owner.id != user.id:
         return jsonify({'msg': 'Not your private file'}), 403
     return send_file(file.fs, as_attachment=True, attachment_filename=file.name), 200
+
+@file_upload.route('/<file_id>', methods=['DELETE'])
+@jwt_required()
+@token_valid
+def delete(user, file_id):
+    file = File.objects(id=file_id).first()
+    if not file:
+        return jsonify({'msg': RESOURCE_NOT_FOUND}), 404
+    if file.owner.id != user.id:
+        return jsonify({'msg': 'Not your file'}), 403
+    file.fs.delete()
+    file.delete()
+    return jsonify({'msg': 'Successfully deleted'}), 200
