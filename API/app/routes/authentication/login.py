@@ -18,7 +18,10 @@ def login_():
     if not user:
         return jsonify(email_does_not_exist()), 404
     if not Users.password_check(user, body['password']):
-        return jsonify({'error': 'Email or password invalid'}), 401
+        return login_invalid(), 401
+
+    if user.account.is_banned:
+        return user_banned(), 401
 
     access_token = create_access_token(identity=str(user.id))
     refresh_token = create_refresh_token(identity=str(user.id))

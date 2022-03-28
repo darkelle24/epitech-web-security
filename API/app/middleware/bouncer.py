@@ -1,28 +1,30 @@
 from functools import wraps
-from flask import jsonify, request
 from flask_jwt_extended import get_jwt_identity
-from models.Bridges import Bridges
-from models.Users import Users
-from app.main import JWT_BRIDGE_KEY
-import jwt
-from app.middleware.errors import BRIDGE_NOT_FOUND, MISSING_TOKEN, INVALID_TOKEN
+from app.models.Users import Users
+from app.errors import *
 
-def bridge_access(func):
+
+def admin_required(func):
     @wraps(func)
     def decorator(*args, **kwargs):
-        if not request.headers.get('Authorization'):
-            return jsonify({"error": MISSING_TOKEN}), 401
-        
-        token = request.headers.get('Authorization').split(' ')[1]
-        try:
-            decoded = jwt.decode(token, JWT_BRIDGE_KEY, algorithms=["HS256"])
-        except:
-            return jsonify({'error': INVALID_TOKEN}), 401    
-        if not Bridges.objects(id=decoded['bridge']):
-            return jsonify({'error': BRIDGE_NOT_FOUND}), 404
-        
+        identity = get_jwt_identity()
 
-        bridge = Bridges.objects(id=decoded['bridge']).first()
+        user = Users.objects(id=identity).first()
+        if not user.account.is_admin:
+            return admin_access_refused(), 401
 
-        return func(bridge, *args, **kwargs)
+        return func(*args, **kwargs)
+    return decorator
+
+
+def ban_checking(func):
+    @wraps(func)
+    def decorator(*args, **kwargs):
+        identity = get_jwt_identity()
+
+        user = Users.objects(id=identity).first()
+        if user.account.is_banned:
+            return user_banned(), 401
+
+        return func(*args, **kwargs)
     return decorator

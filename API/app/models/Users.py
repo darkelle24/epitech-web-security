@@ -5,7 +5,6 @@ from mongoengine.fields import BooleanField, EmbeddedDocumentField, EmailField, 
 from config import MONGO_DB_COMMON_ALIAS
 from config import bcrypt
 
-
 class Users_account(EmbeddedDocument):
     is_active = BooleanField(default=False)
     is_email_verified = BooleanField(default=False)
@@ -18,7 +17,6 @@ class Users(Document):
     username = StringField(unique=True, required=True,
                            min_length=2, max_length=20)
     password = StringField(required=True, min_length=8, max_length=145)
-    admin = BooleanField(default=False)
     account = EmbeddedDocumentField(Users_account)
     profile_picture = StringField(required=False, max_length=300)
     created = DateTimeField(default=datetime.now)
@@ -41,4 +39,20 @@ class Users(Document):
 
     def unverified_email(self):
         self.account.is_email_verified = False
+        self.save()
+
+    def ban_user(self):
+        self.account.is_banned = True
+        self.save()
+
+    def unban_user(self):
+        self.account.is_banned = False
+        self.save()
+
+    def op_user(self):
+        self.account.is_admin = True
+        self.save()
+
+    def deop_user(self):
+        self.account.is_admin = False
         self.save()

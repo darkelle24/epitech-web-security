@@ -14,6 +14,7 @@ flask-mongoengine==1.0.0
 flask-admin==1.5.8
 Flask-SuperAdmin==1.7.1
 Flask-WTF==0.15.1
+Flask-Cors==3.0.10
 green==3.3.0
 gunicorn==20.1.0
 idna==3.3
@@ -26,6 +27,7 @@ MarkupSafe==2.0.1
 mccabe==0.6.1
 mongoengine==0.23.1
 mongomock==3.23.0
+Pillow==7.0.0
 platformdirs==2.4.0
 pycparser==2.20
 PyJWT==2.0.0

@@ -7,8 +7,3 @@ COPY . .
 EXPOSE 5000
 
 CMD ["python3","startup.py"]
-
-
-# 3oXRARJmiq
-
-# mGx9efM7gNosQbFDJJJHBJif65o48ptcTxdHGa4z
