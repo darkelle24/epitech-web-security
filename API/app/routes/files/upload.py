@@ -35,8 +35,6 @@ def upload(form, user):
 @token_valid
 def my_uploads(user):
     files = File.objects(owner=user.id)
-    if not files:
-        return jsonify({'msg': RESOURCE_NOT_FOUND}), 404
     return jsonify(json.loads(files.to_json())), 200
 
 @file_upload.route('/<file_id>', methods=['GET'])
